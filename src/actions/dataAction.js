@@ -118,9 +118,9 @@ function getData() {
  * @returns {Function}
  */
 function searchVeterans(query) {
-  console.log(query);
-  return function (dispatch) {
-    API.searchVeterans(cloneDeep(query)).then(data => {
+  return (dispatch) => {
+    console.log(query);
+    return API.searchVeterans(cloneDeep(query)).then(data => {
       dispatch(loadVeterans(data));
       console.log(query);
       dispatch(updateFilters({ ...query, offset: data.offset, limit: data.limit }));

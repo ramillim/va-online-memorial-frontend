@@ -8,6 +8,11 @@ import {
 import CommonService from "./common";
 import AuthService from "./auth";
 
+const Promise = require('bluebird');
+Promise.config( {
+  cancellation: true
+});
+
 const request = superagentPromise(superagent, Promise);
 const postUrl = {
   Story: 'stories',
