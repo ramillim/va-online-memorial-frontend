@@ -120,10 +120,12 @@ function getData() {
 function searchVeterans(query) {
   console.log(query);
   return function (dispatch) {
+    dispatch({ type: types.SEARCH_QUERY_STARTED });
     return API.searchVeterans(cloneDeep(query)).then(data => {
       dispatch(loadVeterans(data));
       console.log(query);
       dispatch(updateFilters({ ...query, offset: data.offset, limit: data.limit }));
+      dispatch({ type: types.SEARCH_QUERY_SUCCESS });
     });
   }
 }

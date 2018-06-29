@@ -6,6 +6,7 @@ import actions from '../../actions/auth';
 import MainHeaderComponent from '../../components/MainHeader';
 import MainFooter from '../../components/MainFooter';
 import SearchTable from '../../components/SearchTable';
+import Spinner from '../../components/Spinner';
 import Toggler from '../../components/Toggler';
 import '../../containers/Search/search.scss';
 import {map} from 'lodash';
@@ -270,12 +271,14 @@ class Search extends Component {
               
               </form>
               <div className="col col-result">
-                {veterans.items && veterans.items.length > 0
-                  ? (
+                {this.props.ui.isLoading ? (
+                  <Spinner />
+                ) : (
+                  veterans.items && veterans.items.length > 0 ? (
                     <div>
                       <h3 className="fx"><span><span className="count"> {veterans.total}</span> Results for  <span
                         className='keyword'>“{this.state.keyword}”</span></span>
-                        
+
                         <a
                           onClick={this.toggleFilter}
                           className="btn btn-filter">Filter</a>
@@ -286,11 +289,10 @@ class Search extends Component {
                         total: veterans.total,
                         handlePageChange: this.handlePageChange,
                         searchedResults: veterans.items, addClass: 'fullpage'
-                      }}/>
+                      }} />
                     </div>
-                  )
-                  : (<h3>Search Results</h3>)
-                }
+                  ) : (<h3>Search Results</h3>)
+                )}
               </div>
             </div>
           </div>
@@ -304,7 +306,8 @@ class Search extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ...state.dataReducer
+    ...state.dataReducer,
+    ui: state.ui
   }
 };
 

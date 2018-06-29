@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes';
 
 const defaultState = {
+  isLoading: false,
   isRegisterActive: false,
   registrationFormEmail: '',
   showSearchModal: false,
@@ -47,6 +48,16 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         registrationFormEmail: action.email
+      };
+    case types.SEARCH_QUERY_STARTED:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case types.SEARCH_QUERY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false
       };
     default:
       return state;
